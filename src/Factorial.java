@@ -1,4 +1,4 @@
-import java.net.SocketOption;
+import java.util.Scanner;
 
 public class Factorial {
 
@@ -30,7 +30,9 @@ public class Factorial {
     }
     static public void main(String [] args){
         int [] first = {1};
-        int second = 6000;
+        System.out.println("please input:");
+        Scanner input = new Scanner(System.in);
+        int second = input.nextInt();
         for(int i=1;i<=second;i++){
             first = Multiply(first, i);
         }
