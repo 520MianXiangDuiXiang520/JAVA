@@ -6,6 +6,8 @@ public class MyBigDecimal {
         decimal = input_list[1];
     }
 
+    MyBigDecimal(){}
+
     private Long replenish(long arg, int len) {
         String sarg = arg + "";
         while(sarg.length() < len){
@@ -14,11 +16,11 @@ public class MyBigDecimal {
         return Long.parseLong(sarg);
     }
 
-    public void add(MyBigDecimal mbd){
+    public static void add(MyBigDecimal mbd, MyBigDecimal mbd2){
         int max_length = 0;  // 小数部分最大长度
         String x1z,x1x,x2z,x2x;
-        x1z = this.integ;  // x1整数部分
-        x1x = this.decimal;  // x1小数部分
+        x1z = mbd2.integ;  // x1整数部分
+        x1x = mbd2.decimal;  // x1小数部分
         x2z = mbd.integ;  // x2整数部分
         x2x = mbd.decimal;  // x2小数部分
 
@@ -48,52 +50,53 @@ public class MyBigDecimal {
                 rx = "0" + rx;
             }
         }
-        System.out.println(rz + "." + rx);
+        System.out.println(mbd.integ + "." + mbd.decimal + " + " +
+                mbd2.integ + "." + mbd2.decimal + " = " + rz + "." + rx);
     }
 
-    public void multiply(MyBigDecimal x1, MyBigDecimal x2){
+    public static void multiply(MyBigDecimal x1, MyBigDecimal x2){
+        MyBigDecimal myBigDecimal = new MyBigDecimal();
         int x1Integ = Integer.valueOf(x1.integ);
         int x2Integ = Integer.valueOf(x2.integ);
         int x1Decimal = Integer.valueOf(x1.decimal);
         int x2Decimal = Integer.valueOf(x2.decimal);
         long jinWei = 0;
 
-        long resaultInteg = x1Integ * x2Integ;
+        long resultInteg = x1Integ * x2Integ;
 
         // x1 的整数部分乘以 x2 的小数部分
-
-        long resaultLeft = x1Integ * x2Decimal;
-        long resaultLeftInteg = resaultLeft / (int) Math.pow(10, x2.decimal.length());
-        long resaultLeftDecial = resaultLeft % (int) Math.pow(10, x2.decimal.length());
-        resaultLeftDecial = replenish(resaultLeftDecial, (x1.decimal.length() + x2.decimal.length()));
+        long resultLeft = x1Integ * x2Decimal;
+        long resultLeftInteg = resultLeft / (int) Math.pow(10, x2.decimal.length());
+        long resultLeftDecial = resultLeft % (int) Math.pow(10, x2.decimal.length());
+        resultLeftDecial = myBigDecimal.replenish(resultLeftDecial, (x1.decimal.length() + x2.decimal.length()));
 
         // x2 的整数部分乘以 x1 的小数部分
 
-        long resaultRight = x2Integ * x1Decimal;
-        long resaultRightInteg = resaultRight / (int) Math.pow(10, x1.decimal.length());
-        long resaultRightDecial = resaultRight % (int) Math.pow(10, x1.decimal.length());
-        resaultRightDecial = replenish(resaultRightDecial, (x1.decimal.length() + x2.decimal.length()));
+        long resultRight = x2Integ * x1Decimal;
+        long resultRightInteg = resultRight / (int) Math.pow(10, x1.decimal.length());
+        long resultRightDecial = resultRight % (int) Math.pow(10, x1.decimal.length());
+        resultRightDecial = myBigDecimal.replenish(resultRightDecial, (x1.decimal.length() + x2.decimal.length()));
 
         // 小数部分乘以小数部分
-        long resaultDouble = x1Decimal * x2Decimal;
-        long resaultDoubleInteg = resaultDouble / (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
-        long resaultDoubleDecial = resaultDouble % (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
+        long resultDouble = x1Decimal * x2Decimal;
+        long resultDoubleInteg = resultDouble / (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
+        long resultDoubleDecial = resultDouble % (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
 
-        long resaultDecial = resaultLeftDecial + resaultRightDecial + resaultDoubleDecial;
+        long resultDecial = resultLeftDecial + resultRightDecial + resultDoubleDecial;
 
-        jinWei = resaultDecial / (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
-        resaultDecial = resaultDecial % (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
+        jinWei = resultDecial / (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
+        resultDecial = resultDecial % (int) Math.pow(10, x1.decimal.length() + x2.decimal.length());
 
-        resaultInteg = resaultInteg + resaultLeftInteg + resaultRightInteg + jinWei + resaultDoubleInteg;
+        resultInteg = resultInteg + resultLeftInteg + resultRightInteg + jinWei + resultDoubleInteg;
 
         System.out.println(x1Integ + "." + x1Decimal + " * "
-                + x2Integ + "." + x2Decimal + " = " + resaultInteg + "." + resaultDecial);
+                + x2Integ + "." + x2Decimal + " = " + resultInteg + "." + resultDecial);
     }
 
     public static void main(String[] args) {
         MyBigDecimal mbd1 = new MyBigDecimal(12.1232348);
         MyBigDecimal mbd2 = new MyBigDecimal(5.90099);
-//        mbd1.add(mbd2);
-        mbd1.multiply(mbd1, mbd2);
+        add(mbd2, mbd1);
+        multiply(mbd1, mbd2);
     }
 }
