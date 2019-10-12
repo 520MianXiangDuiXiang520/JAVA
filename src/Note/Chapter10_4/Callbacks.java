@@ -5,6 +5,7 @@ interface Incrementable {
     void increment();
 }
 
+// 通过外围类实现接口
 class Callee1 implements Incrementable {
     private int i = 0;
     @Override
