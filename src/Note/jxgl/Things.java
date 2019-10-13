@@ -2,10 +2,10 @@ package Note.jxgl;
 
 import java.util.ArrayList;
 
-public class Person {
+public class Things {
     protected String name;
     protected int id;
-    Person(int id, String name){
+    Things(int id, String name){
         this.id = id;
         this.name = name;
     }

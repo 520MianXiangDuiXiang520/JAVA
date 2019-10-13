@@ -17,7 +17,7 @@ public class TeacherManage extends Manage{
         tm.add(t2);
         tm.printAll();
         tm.delete("1111");
-        tm.alter(t1, "wangwu");
+        tm.alert(t1, "wangwu");
         tm.printAll();
     }
 }

@@ -35,8 +35,27 @@ public class GStudentMange extends StudentManage {
         }
     }
 
-    protected void printInfo(GraduateStudent gs, String by){
-        System.out.println(gs.id + "   " + gs.name + "   " + by + gs.papers.toString());
+    public void getInfo(GraduateStudent graduateStudent){
+        super.getInfo(graduateStudent);
+        if(graduateStudent != null){
+            for(String s: graduateStudent.papers){
+                if(s != null)
+                    System.out.print(s + "   ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void getInfo(int id){
+        GraduateStudent findStudent = (GraduateStudent) find(id);
+        if(findStudent != null)
+            getInfo(findStudent);
+    }
+
+    public void getInfo(String name){
+        GraduateStudent findStudent = (GraduateStudent) find(name);
+        if(findStudent != null)
+            getInfo(findStudent);
     }
 
     public static void main(String[] args) {

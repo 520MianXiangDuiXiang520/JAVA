@@ -10,10 +10,6 @@ public class StudentManage extends Manage {
         super(al);
     }
 
-    protected void printInfo(Student student, String by){
-        System.out.println(student.id + "   " + student.name + "   " + by);
-    }
-
     public void add(String name, int graduation){
         /**
          * 增加一个学生，覆盖基类方法，实现学号递增
@@ -31,7 +27,7 @@ public class StudentManage extends Manage {
                 by = "已肄业";
             else
                 by = "未毕业";
-            this.printInfo(findStudent,by);
+            System.out.println(student.id + "   " + student.name + "   " + by);
         }
         else
             System.out.println("没找到");

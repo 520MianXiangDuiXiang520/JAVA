@@ -2,24 +2,25 @@ package Note.jxgl;
 
 import java.util.ArrayList;
 
-public class Manage {
-    ArrayList<Person> list;
+public class Manage implements ManageInterface {
+    ArrayList<Things> list;
     Manage(ArrayList al){
         list = al;
     }
-    public void add(Person person){
-        list.add(person);
+
+    @Override
+    public void add(Things obj) {
+        list.add(obj);
+        System.out.println("添加成功");
     }
 
-    protected Person find(Person per){
-        /**
-         * 通过对象查找
-         */
+    @Override
+    public Things find(Things obj) {
         boolean isHave = false;
-        for(Person person: list){
-            if (person == per){
+        for(Things object: list){
+            if (object == obj){
                 isHave = true;
-                return person;
+                return object;
             }
 
         }
@@ -28,15 +29,13 @@ public class Manage {
         return null;
     }
 
-    protected Person find(int id){
-        /**
-         * 通过id查找
-         */
+    @Override
+    public Things find(int id) {
         boolean isHave = false;
-        for(Person person: list){
-            if (person.id == id){
+        for(Things object: list){
+            if (object.id == id){
                 isHave = true;
-                return person;
+                return object;
             }
 
         }
@@ -45,114 +44,93 @@ public class Manage {
         return null;
     }
 
-    protected Person find(String name){
-        /**
-         * 通过name查找
-         */
+    @Override
+    public Things find(String name) {
         boolean isHave = false;
-        for(Person person: list){
-            if (person.name == name){
+        for(Things object: list){
+            if (object.name == name){
                 isHave = true;
-                return person;
+                return object;
             }
+
         }
-        if(!isHave)
+        if(! isHave)
             System.out.println("没有找到！");
         return null;
     }
 
-    public void delete(Person person){
-        /**
-         * 通过对象删除
-         */
-        if(list.contains(person)){
-            list.remove(person);
+    @Override
+    public void delete(Things obj) {
+        if(list.contains(obj)){
+            list.remove(obj);
             System.out.println("删除成功！");
         } else {
             System.out.println("没有找到！");
         }
     }
 
-    public void delete(int id){
-        /**
-         * 通过id删除
-         */
-        Person findPerson = find(id);
-        if(findPerson != null)
-            delete(findPerson);
+    @Override
+    public void delete(int id) {
+        Things findThings = find(id);
+        if(findThings != null)
+            delete(findThings);
     }
 
-    public void delete(String name){
-        /**
-         * 通过name删除
-         */
-        Person findPerson = find(name);
-        if(findPerson != null)
-            delete(findPerson);
+    @Override
+    public void delete(String name) {
+        Things findThings = find(name);
+        if(findThings != null)
+            delete(findThings);
     }
 
-    public void getInfo(Person person){
-        /**
-         * 通过对象打印详细信息
-         */
-        Person findPerson = find(person);
-        if(findPerson != null)
-            System.out.println(findPerson.id + "   " + findPerson.name);
+    @Override
+    public void getInfo(Things obj) {
+        Things findThings = find(obj);
+        if(findThings != null)
+            System.out.println(findThings.id + "   " + findThings.name);
         else
             System.out.println("没找到");
     }
 
-    public void getInfo(String name){
-        /**
-         * 通过name打印详细信息
-         */
-        Person findPerson = find(name);
-        if(findPerson != null)
-            getInfo(findPerson);
+    @Override
+    public void getInfo(int id) {
+        Things findThings = find(id);
+        if(findThings != null)
+            this.getInfo(findThings);
     }
 
-    public void getInfo(int id){
-        /**
-         * 通过id打印详细信息
-         */
-        Person findPerson = find(id);
-        if(findPerson != null)
-            getInfo(findPerson);
+    @Override
+    public void getInfo(String name) {
+        Things findThings = find(name);
+        if(findThings != null)
+            this.getInfo(findThings);
     }
 
-    public void alter(Person person, String newName){
-        /**
-         * 通过对象修改信息（修改name）
-         */
-        if(list.contains(person)){
-            int index = list.indexOf(person);
-            Person person1 = (Person)list.get(index);
-            person1.name = newName;
+    @Override
+    public void alert(Things obj, String newName) {
+        if(list.contains(obj)){
+            int index = list.indexOf(obj);
+            Things things = (Things) list.get(index);
+            things.name = newName;
         }
     }
 
-    public void alert(int id,String newName){
-        /**
-         * 通过id修改信息（修改name）
-         */
-        Person findPerson = find(id);
-        if(findPerson != null)
-            alter(findPerson, newName);
+    @Override
+    public void alert(int id, String newName) {
+        Things findThings = find(id);
+        if(findThings != null)
+            alert(findThings, newName);
     }
 
-    public void alert(String name, String newName){
-        /**
-         * 通过name修改信息（修改name）
-         */
-        Person findPerson = find(name);
-        if(findPerson != null)
-            alter(findPerson, newName);
+    @Override
+    public void alert(String name, String newName) {
+        Things findThings = find(name);
+        if(findThings != null)
+            alert(findThings, newName);
     }
 
-    public void printAll(){
-        /**
-         * 打印所有人
-         */
+    @Override
+    public void printAll() {
         System.out.println(list);
     }
 }
