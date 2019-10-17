@@ -1,9 +1,13 @@
+import java.math.BigDecimal;
+
 public class MyBigDecimal {
     private String integ, decimal;
+    private double input;
     MyBigDecimal(double input){
         String[] input_list = (input + "").split("\\.");
         integ = input_list[0];
         decimal = input_list[1];
+        this.input = input;
     }
 
     MyBigDecimal(){}
@@ -93,10 +97,22 @@ public class MyBigDecimal {
                 + x2Integ + "." + x2Decimal + " = " + resultInteg + "." + resultDecial);
     }
 
+    private static double div(MyBigDecimal mdb1, MyBigDecimal mbd2, int scale){
+        if (scale < 0) {
+            throw new IllegalArgumentException(" the scale must be a positive integer or zero");
+        }
+        BigDecimal b1 = new BigDecimal(Double.toString(mdb1.input));
+        BigDecimal b2 = new BigDecimal(Double.toString(mbd2.input));
+        double result = b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+        System.out.println(mdb1.input + " / " + mbd2.input + " = " + result);
+        return result;
+    }
+
     public static void main(String[] args) {
         MyBigDecimal mbd1 = new MyBigDecimal(12.1232348);
         MyBigDecimal mbd2 = new MyBigDecimal(5.90099);
         add(mbd2, mbd1);
         multiply(mbd1, mbd2);
+        div(mbd1,mbd2,4);
     }
 }
