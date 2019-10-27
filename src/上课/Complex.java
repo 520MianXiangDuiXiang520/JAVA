@@ -44,8 +44,8 @@ public class Complex {
         }
     }
     public static void main(String[] args) {
-        Complex c1 = new Complex(1,2);
-        Complex c2 = new Complex(2,3);
+        Complex c1 = new Complex(6,2);
+        Complex c2 = new Complex(2,8);
         sout(add(c1,c2));
         sout(less(c1,c2));
         sout(multipy(c1, c2));
