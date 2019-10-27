@@ -30,6 +30,13 @@ public class Print {
         coutln();
     }
 
+    public static void cout(Object[] obj, String end){
+        for(int i = 0; i<obj.length; i++){
+            cout(obj[i] + end);
+        }
+        coutln();
+    }
+
     public static void cout(Object[] obj, boolean s){
         if(!s)
             System.out.println(obj);
