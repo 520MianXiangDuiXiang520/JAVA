@@ -16,6 +16,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class Calculator {
 //	private static String expression = "";
 	private StringBuilder expression = new StringBuilder();
+	private CalculationString cs = new CalculationString();
 
 	protected Shell shlCalculator;
 	private Text text;
@@ -126,12 +127,12 @@ public class Calculator {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				expression.append("^");
+				expression.delete(0, expression.length());
 				text.setText(expression.toString());
 			}
 		});
 		btnNewButton_1.setBounds(369, 433, 63, 30);
-		btnNewButton_1.setText("^");
+		btnNewButton_1.setText("\u6E05\u7A7A");
 		
 		Button btnNewButton_2 = new Button(shlCalculator, SWT.NONE);
 		btnNewButton_2.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
@@ -256,6 +257,13 @@ public class Calculator {
 		button_10.setBounds(128, 423, 98, 51);
 		
 		Button button_11 = new Button(shlCalculator, SWT.NONE);
+		button_11.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				text.setText(cs.compute(expression.toString()) + "");
+				expression.delete(0, expression.length());
+			}
+		});
 		button_11.setText("=");
 		button_11.setBounds(244, 423, 98, 51);
 		
@@ -282,6 +290,14 @@ public class Calculator {
 		button_13.setBounds(128, 125, 98, 51);
 		
 		Button button_14 = new Button(shlCalculator, SWT.NONE);
+		button_14.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				if (expression.length() > 0)
+					expression.delete(expression.length()-1,expression.length());
+				text.setText(expression.toString());
+			}
+		});
 		button_14.setText("<--");
 		button_14.setBounds(244, 125, 98, 51);
 
