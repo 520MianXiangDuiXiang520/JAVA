@@ -1,4 +1,4 @@
-package 上课.实验6;
+package 上课.实验5;
 
 public class BenKeStudent extends Student {
     BenKeStudent(String n,int s){
