@@ -24,10 +24,11 @@ public class Print {
     }
 
     public static void cout(Object[] obj){
+        cout("[");
         for(int i = 0; i<obj.length; i++){
             cout(obj[i] + ", ");
         }
-        coutln();
+        coutln("]");
     }
 
     public static void cout(Object[] obj, String end){

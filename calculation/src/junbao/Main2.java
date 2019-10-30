@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.FormText;
+
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wb.swt.SWTResourceManager;
+
 
 class Factorial {
 	
