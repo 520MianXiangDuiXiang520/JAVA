@@ -3,6 +3,7 @@ package junbao.draw;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import junbao.shapes.Circle;
 import junbao.shapes.IShape;
 import junbao.shapes.Rect;
 
@@ -10,10 +11,14 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class DrawMain {
 
@@ -25,6 +30,7 @@ public class DrawMain {
 	private static boolean leftButtonDown = false;
 	private static int lastWidth = 0;
 	private static int lastHeight = 0;
+	private static int shapeType = 1;
 
 	/**
 	 * Launch the application.
@@ -87,6 +93,7 @@ public class DrawMain {
 		shell.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
+				shell.setCursor(new Cursor(null,SWT.CURSOR_CROSS));
 				startX = e.x;
 				startY = e.y;
 				leftButtonDown = true;
@@ -96,16 +103,53 @@ public class DrawMain {
 			public void mouseUp(MouseEvent e) {
 				// ÅÐ¶Ï×ó»÷
 				if(e.button == 1) {
+					shell.setCursor(new Cursor(null,SWT.CURSOR_ARROW));
 					leftButtonDown = false;
-					IShape rect = new Rect(startX,startY,e.x-startX,e.y-startY,gcMain);
-					rect.draw();
-					board.insertShape(rect);
+					gcMain.setLineStyle(SWT.LINE_DOT);
+					gcMain.setForeground(shell.getBackground());
+					gcMain.drawRectangle(startX, startY, lastWidth, lastHeight);
+					gcMain.setLineStyle(SWT.LINE_SOLID);
+					Color black = new Color(null, 0, 0, 0, 0);
+					gcMain.setForeground(black);
+					IShape shape;
+					switch (shapeType) {
+					case 1:
+						shape = new Rect(startX, startY, lastWidth, lastHeight, gcMain);
+						break;
+					case 2:
+						shape = new Circle(startX, startY, lastWidth, lastHeight, gcMain);
+						break;
+					default:
+						shape = new Rect(startX, startY, lastWidth, lastHeight, gcMain);
+						break;
+					}
+					board.insertShape(shape);
+					board.refrech();
 				}
 			}
 		});
 		shell.setSize(600, 450);
 		shell.setText("SWT Application");
+		
+		Button btnRect = new Button(shell, SWT.NONE);
+		btnRect.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				shapeType = 1;
+			}
+		});
+		btnRect.setBounds(0, 25, 98, 30);
+		btnRect.setText("Rect");
+		
+		Button btnCircle = new Button(shell, SWT.NONE);
+		btnCircle.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				shapeType = 2;
+			}
+		});
+		btnCircle.setBounds(124, 25, 98, 30);
+		btnCircle.setText("Circle");
 
 	}
-
 }
