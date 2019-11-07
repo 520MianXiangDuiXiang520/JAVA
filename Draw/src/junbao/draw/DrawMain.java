@@ -1,11 +1,15 @@
 package junbao.draw;
 
+import junbao.shapes.Rect;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import junbao.shapes.Circle;
+import junbao.ClassUtil;
 import junbao.shapes.IShape;
-import junbao.shapes.Rect;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
@@ -30,7 +34,9 @@ public class DrawMain {
 	private static boolean leftButtonDown = false;
 	private static int lastWidth = 0;
 	private static int lastHeight = 0;
-	private static int shapeType = 1;
+//	private static int shapeType = 1;
+	private static String shapeType = "Rect";
+	public static ArrayList<String> shapeTypes;
 
 	/**
 	 * Launch the application.
@@ -38,8 +44,22 @@ public class DrawMain {
 	 */
 	public static void main(String[] args) {
 		try {
+			
+			List listClass = null;
+			String pkg = "junbao.shapes";
+			listClass = ClassUtil.getClassList(pkg, true, null);
+
+			shapeTypes = new ArrayList<String>();
+			for (Object object : listClass) {
+				String name = ((Class<?>)object).getName();
+				if(!name.equals("junbao.shapes.IShape")){
+					shapeTypes.add(name);
+				}
+			}
+			
 			DrawMain window = new DrawMain();
 			window.open();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -103,8 +123,10 @@ public class DrawMain {
 			public void mouseUp(MouseEvent e) {
 				// 判断左击
 				if(e.button == 1) {
+					// 设置光标类型为十字
 					shell.setCursor(new Cursor(null,SWT.CURSOR_ARROW));
 					leftButtonDown = false;
+
 					gcMain.setLineStyle(SWT.LINE_DOT);
 					gcMain.setForeground(shell.getBackground());
 					gcMain.drawRectangle(startX, startY, lastWidth, lastHeight);
@@ -112,44 +134,53 @@ public class DrawMain {
 					Color black = new Color(null, 0, 0, 0, 0);
 					gcMain.setForeground(black);
 					IShape shape;
-					switch (shapeType) {
-					case 1:
-						shape = new Rect(startX, startY, lastWidth, lastHeight, gcMain);
-						break;
-					case 2:
-						shape = new Circle(startX, startY, lastWidth, lastHeight, gcMain);
-						break;
-					default:
-						shape = new Rect(startX, startY, lastWidth, lastHeight, gcMain);
-						break;
+					try{
+						Class shapeClass = Class.forName(shapeType);
+						Object oShape = shapeClass.newInstance();
+						shape = (IShape)oShape;
+						shape.setTop(startX);
+						shape.setLeft(startY);
+						shape.setWidth(e.x - startX);
+						shape.setHeight(e.y - startY);
+						shape.setGcMain(gcMain);
+						}
+						catch (Exception ex) {
+						ex.printStackTrace();
+						shape = null;
 					}
+					if(shape != null) {
+
 					board.insertShape(shape);
 					board.refrech();
+					}
 				}
 			}
 		});
 		shell.setSize(600, 450);
 		shell.setText("SWT Application");
 		
-		Button btnRect = new Button(shell, SWT.NONE);
-		btnRect.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				shapeType = 1;
-			}
+		int indexButton = 0;
+		for (String strClass : shapeTypes) {
+		Button btn = new Button(shell, SWT.NONE);
+		btn.addSelectionListener(new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+		shapeType = strClass;
+		}
 		});
-		btnRect.setBounds(0, 25, 98, 30);
-		btnRect.setText("Rect");
-		
-		Button btnCircle = new Button(shell, SWT.NONE);
-		btnCircle.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				shapeType = 2;
-			}
-		});
-		btnCircle.setBounds(124, 25, 98, 30);
-		btnCircle.setText("Circle");
+		btn.setBounds(84 * indexButton, 0, 80, 27);
+		indexButton++;
+		try {
+			Class<?> shapeClass = Class.forName(strClass);
+			Method method = shapeClass.getMethod("toName");
+			btn.setText(method.invoke(null, null).toString());
+			btn.setData("shapeType", strClass);
+		} catch (Exception e) {
+			btn.setText(strClass);
+			btn.setData("shapeType", strClass);
+		}
+		}
+
 
 	}
 }
