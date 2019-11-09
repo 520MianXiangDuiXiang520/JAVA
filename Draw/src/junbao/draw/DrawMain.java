@@ -135,8 +135,9 @@ public class DrawMain {
 					gcMain.setForeground(black);
 					IShape shape;
 					try{
-						Class shapeClass = Class.forName(shapeType);
-						Object oShape = shapeClass.newInstance();
+						System.out.println(shapeType);
+						Class<IShape> shapeClass = (Class<IShape>) Class.forName(shapeType);
+						IShape oShape = shapeClass.newInstance();
 						shape = (IShape)oShape;
 						shape.setTop(startX);
 						shape.setLeft(startY);

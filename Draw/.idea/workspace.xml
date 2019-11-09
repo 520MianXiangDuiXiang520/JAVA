@@ -19,6 +19,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../桌面文件/JAVA" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -70,6 +71,9 @@
       <option name="presentableId" value="Default" />
       <updated>1573044471719</updated>
       <workItem from="1573044488410" duration="4371000" />
+      <workItem from="1573194433254" duration="373000" />
+      <workItem from="1573219350479" duration="44939000" />
+      <workItem from="1573283311752" duration="6462000" />
     </task>
     <servers />
   </component>
