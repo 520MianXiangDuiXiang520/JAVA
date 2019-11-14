@@ -12,6 +12,7 @@ public class TestRegex {
         while(matcher.find()){
             System.out.print(matcher.group(3) + "-");
         }
+        System.out.println(matcher.lookingAt());
         System.out.println();
         String s1 = matcher.replaceAll("hah");
         System.out.println(s1);

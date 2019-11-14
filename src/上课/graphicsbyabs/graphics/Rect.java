@@ -1,4 +1,4 @@
-package 上课.graphics;
+package 上课.graphicsbyabs.graphics;
 
 public class Rect extends Graphics {
     Rect(String text){

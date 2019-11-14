@@ -1,6 +1,6 @@
-package 上课.graphics;
+package 上课.graphicsbyabs.graphics;
 
-public class Graphics implements GraphicsInface {
+public class Graphics extends GraphicsAbstract {
     protected String name;
     Graphics(String text){
         this.name = text;

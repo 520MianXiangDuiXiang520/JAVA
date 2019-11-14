@@ -1,21 +1,21 @@
-package 上课.graphics;
+package 上课.graphicsbyabs.graphics;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class Board {
-    public List<GraphicsInface> graphics;
+    public List<GraphicsAbstract> graphics;
 
     public Board(){
         graphics = new ArrayList<>();
     }
 
-    public void addGraphics(GraphicsInface graphic){
+    public void addGraphics(GraphicsAbstract graphic){
         graphics.add(graphic);
     }
 
     public void refresh(){
-        for(GraphicsInface graphics: graphics) {
+        for(GraphicsAbstract graphics: graphics) {
             graphics.draw();
         }
     }

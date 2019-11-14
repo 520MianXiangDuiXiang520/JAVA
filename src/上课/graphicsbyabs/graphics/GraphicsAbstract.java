@@ -1,6 +1,6 @@
-package 上课.graphics;
+package 上课.graphicsbyabs.graphics;
 
-interface GraphicsInface {
-    public void draw();
+abstract class GraphicsAbstract {
+    abstract public void draw();
 //    abstract public void dispose();
 }

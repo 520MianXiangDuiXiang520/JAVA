@@ -1,4 +1,4 @@
-package 上课.graphics;
+package 上课.graphicsbyabs.graphics;
 
 public class Triangle extends Graphics {
     Triangle(String text) {
