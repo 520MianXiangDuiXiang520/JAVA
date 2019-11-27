@@ -4,7 +4,7 @@ import junbao.shapes.Rect;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import junbao.ClassUtil;
+import junbao.shapes.ClassUtil;
 import junbao.shapes.IShape;
 
 import java.lang.reflect.Method;

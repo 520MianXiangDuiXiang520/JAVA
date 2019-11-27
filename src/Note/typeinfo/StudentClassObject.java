@@ -22,7 +22,9 @@ class Student {
     void protectedMethod1() {}
     void protectedMethod2() {}
 
-    private void privateMethod1() {}
+    private void privateMethod1() {
+        System.out.println(this.privateVar);
+    }
     private void privateMethod2() {}
 }
 
@@ -35,12 +37,12 @@ public class StudentClassObject {
         return obj.getClass();
     }
 
-    public static Class getClassByClass() {
+    public static Class<Student> getClassByClass() {
         return Student.class;
     }
     public static void main(String[] args) throws Exception {
         Student student = new Student("111");
-        Class c1 = getClassByClass();
+        Class<Student> c1 = getClassByClass();
         Class c2 = getClassByName("Note.typeinfo.Student");
         Class c3 = getClassByObject(new Student(""));
         System.out.println(c1);
@@ -49,7 +51,10 @@ public class StudentClassObject {
         Field[] field = c1.getFields();
 
         Method[] methods = c2.getMethods();
-        Constructor[] constructors = c3.getConstructors();
+        Constructor[] constructors = c3.getDeclaredConstructors();
+        constructors[2].setAccessible(true);
+        System.out.println(constructors[2]);
+        Student student1 = (Student) constructors[2].newInstance();
 //        setAccessible(true);
         Field var1 = c1.getField("publicVar");
         var1.set(student, "111");
@@ -64,5 +69,15 @@ public class StudentClassObject {
             f.set(student, "11");
         }
 //        System.out.println(field);
+
+        System.out.println(methods[1]);
+        methods[1].invoke(student);
+
+        Method method = c1.getDeclaredMethod("privateMethod1");
+        method.setAccessible(true);
+        method.invoke(student);
+
+        ClassLoader loader = c2.getClassLoader();
+
     }
 }
