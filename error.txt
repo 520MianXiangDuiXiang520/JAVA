@@ -1,0 +1,2 @@
+func1 发生异常 异常类型为：NullPointerException
+异常原因为：null
