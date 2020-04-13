@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JAVA.iml" filepath="$PROJECT_DIR$/JAVA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RSA/RSA.iml" filepath="$PROJECT_DIR$/RSA/RSA.iml" />
     </modules>
   </component>
 </project>
