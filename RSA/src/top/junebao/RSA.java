@@ -83,6 +83,7 @@ public class RSA {
 
     @SuppressWarnings("all")
     public static String decode(String cipherText, String pkD, String pkN) {
+        // TODO: 汉语解码出错
         BigInteger bpkN = new BigInteger(pkN);
         BigInteger bpkD = new BigInteger(pkD);
         List<BigInteger> cipherTexts = StrBit.stringToBigInt(cipherText);
